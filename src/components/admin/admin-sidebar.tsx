@@ -53,6 +53,7 @@ export function AdminSidebar() {
         className={cn('flex items-center gap-2 rounded-lg px-2 font-bold', FOCUS_RING)}
       >
         <span
+          aria-hidden="true"
           className="flex h-7 w-7 items-center justify-center rounded-lg text-white text-sm"
           style={{ background: 'linear-gradient(135deg, #5b4fe0, #8b7bff)' }}
         >
@@ -72,6 +73,7 @@ export function AdminSidebar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={active ? 'page' : undefined}
                   className={cn(
                     'block rounded-lg px-2 py-1.5 text-sm',
                     FOCUS_RING,
