@@ -18,6 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-y-2 px-4 py-3">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">
             <span
+              aria-hidden="true"
               className="flex h-7 w-7 items-center justify-center rounded-lg text-white text-sm"
               style={{ background: 'linear-gradient(135deg, #5b4fe0, #8b7bff)' }}
             >

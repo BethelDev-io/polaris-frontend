@@ -46,6 +46,7 @@ export function AdminSidebar() {
     <nav className="w-56 shrink-0 space-y-6 border-r border-[var(--line)] px-4 py-6">
       <Link href="/" className="flex items-center gap-2 px-2 font-bold">
         <span
+          aria-hidden="true"
           className="flex h-7 w-7 items-center justify-center rounded-lg text-white text-sm"
           style={{ background: 'linear-gradient(135deg, #5b4fe0, #8b7bff)' }}
         >
