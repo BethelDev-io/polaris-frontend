@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "bundle:check": "node scripts/check-bundle-size.mjs"
   },
   "dependencies": {
     "@stellar/freighter-api": "^6.0.1",

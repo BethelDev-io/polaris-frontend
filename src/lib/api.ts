@@ -3,14 +3,22 @@ import { config } from './config';
 /** A hung oracle (not erroring, just never responding) would otherwise leave every caller's busy state stuck forever with no recourse — same failure shape `freighter-wallet.ts`'s `withTimeout` guards against for signing. */
 const REQUEST_TIMEOUT_MS = 20_000;
 
+/**
+ * Server components (see `markets/page.tsx` / `perpetuals/page.tsx`) fetch the
+ * list on the server so the first HTML response already contains rows. The
+ * oracle is reached directly from the Next.js server, so the browser-only
+ * `credentials: 'include'` cookie forwarding is skipped there — there is no
+ * session cookie to send for these public list endpoints anyway.
+ */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const isServer = typeof window === 'undefined';
   const res = await fetch(`${config.oracleUrl}${path}`, {
     ...init,
     // Needed for the email-login session cookie (httpOnly, set by the
     // backend) to be sent on same-site-but-cross-origin requests like
     // localhost:3000 -> localhost:3001. Harmless for every other endpoint,
     // which simply has no cookie to send.
-    credentials: 'include',
+    ...(isServer ? {} : { credentials: 'include' as RequestCredentials }),
     headers: { 'content-type': 'application/json', ...init?.headers },
     signal: init?.signal ?? AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
@@ -203,6 +211,5 @@ export const api = {
     function: string;
     args: Record<string, string | number>;
     contractKind?: 'market' | 'perpetual';
-  }) => request<{ txHash: string }>('/auth/email/trade', { method: 'POST', body
-
-/* … truncated 3074 chars — edit only what you need near the top … */
+  }) => request<{ txHash: string }>('/auth/email/trade', { method: 'POST', body: JSON.stringify(params) }),
+};
