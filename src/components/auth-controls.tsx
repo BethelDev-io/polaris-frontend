@@ -182,7 +182,7 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
       <Button
         size="sm"
         onClick={() => void connectWallet()}
-        className={firstTimeIntent ? 'animate-pulse ring-2 ring-[var(--accent)] ring-offset-2' : undefined}
+        className={firstTimeIntent ? 'motion-safe:animate-pulse ring-2 ring-[var(--accent)] ring-offset-2' : undefined}
       >
         {compact ? 'Connect Wallet' : (
           <>
