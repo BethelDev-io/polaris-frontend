@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useWallet } from '@/lib/wallet-provider';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { api } from '@/lib/api';
 import { shortAddress, stroopsToXlm } from '@/lib/format';
 
@@ -89,8 +90,6 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
   });
 
   const linkClass = `${compact ? 'text-[10px]' : 'text-[11px]'} text-[var(--muted)] underline hover:text-[var(--ink)]`;
-  const inputClass = `h-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-2 ${compact ? 'text-xs' : 'text-xs'}`;
-  const btnSize = compact ? 'sm' : 'sm';
 
   if (wallet) {
     return (
@@ -110,7 +109,7 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
 
   if (connecting) {
     return (
-      <Button size={btnSize} disabled>
+      <Button size="sm" disabled>
         Confirm in Freighter…
       </Button>
     );
@@ -132,14 +131,17 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
             <input
               ref={codeInputRef}
               disabled={emailBusy}
-              className={`${inputClass} w-24 disabled:opacity-60`}
+              size="sm"
+              className="w-24 disabled:opacity-60"
               placeholder="6-digit code"
+              aria-label="6-digit verification code"
+              autoComplete="one-time-code"
               inputMode="numeric"
               maxLength={6}
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
             />
-            <Button size={btnSize} type="submit" disabled={emailBusy || code.length !== 6}>
+            <Button size="sm" type="submit" disabled={emailBusy || code.length !== 6}>
               {emailBusy ? 'Verifying…' : 'Verify'}
             </Button>
           </div>
@@ -170,12 +172,15 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
             ref={emailInputRef}
             type="email"
             disabled={emailBusy}
-            className={`${inputClass} w-36 disabled:opacity-60`}
+            size="sm"
+            className="w-36 disabled:opacity-60"
             placeholder="you@email.com"
+            aria-label="Email address"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button size={btnSize} type="submit" disabled={emailBusy || !email}>
+          <Button size="sm" type="submit" disabled={emailBusy || !email}>
             {emailBusy ? 'Sending…' : 'Send code'}
           </Button>
         </div>
@@ -200,9 +205,9 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex flex-col items-end gap-1">
       <Button
-        size={btnSize}
+        size="sm"
         onClick={() => void connectWallet()}
-        className={firstTimeIntent ? 'animate-pulse ring-2 ring-[var(--accent)] ring-offset-2' : undefined}
+        className={firstTimeIntent ? 'motion-safe:animate-pulse ring-2 ring-[var(--accent)] ring-offset-2' : undefined}
       >
         {compact ? 'Connect Wallet' : (
           <>

@@ -151,6 +151,7 @@ export default function EmbedMarketPage({ params }: { params: Promise<{ id: stri
               className="flex items-center gap-1.5 text-xs font-semibold text-[var(--faint)] hover:text-[var(--accent-ink)]"
             >
               <span
+                aria-hidden="true"
                 className="flex h-4 w-4 items-center justify-center rounded text-white"
                 style={{ background: 'linear-gradient(135deg, #5b4fe0, #8b7bff)', fontSize: 9 }}
               >
