@@ -65,6 +65,7 @@ export function AdminSidebar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={active ? 'page' : undefined}
                   className={cn(
                     'block rounded-lg px-2 py-1.5 text-sm',
                     active
