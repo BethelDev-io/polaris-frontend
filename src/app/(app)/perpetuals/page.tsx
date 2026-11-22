@@ -8,19 +8,14 @@ import { Badge } from '@/components/ui/badge';
 import { OddsBar } from '@/components/odds-bar';
 import { statusLabel } from '@/lib/format';
 
-function PerpetualCard({ contractId }: { contractId: string }) {
-  const { data: perpetual } = useQuery({
-    queryKey: ['perpetual', contractId],
-    queryFn: () => api.getPerpetual(contractId),
-  });
+function PerpetualCard({ perpetual }: { perpetual: { contractId: string; status: string } }) {
+  const { contractId } = perpetual;
   const { data: price } = useQuery({
     queryKey: ['perpetualPrice', contractId],
     queryFn: () => api.getPerpetualPrice(contractId),
-    enabled: perpetual?.status === 'watching',
+    enabled: perpetual.status === 'watching',
     refetchInterval: 15_000,
   });
-
-  if (!perpetual) return null;
 
   return (
     <Link href={`/perpetual/${contractId}`}>
@@ -76,7 +71,7 @@ export default function AllPerpetualsPage() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {perpetuals?.map((p) => (
-          <PerpetualCard key={p.contractId} contractId={p.contractId} />
+          <PerpetualCard key={p.contractId} perpetual={p} />
         ))}
       </div>
     </div>
