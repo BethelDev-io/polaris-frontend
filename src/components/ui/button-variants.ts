@@ -22,6 +22,8 @@ export const buttonVariants = cva(
         sm: 'h-8 px-3 text-sm',
         md: 'h-10 px-4 text-sm',
         lg: 'h-12 px-6 text-base',
+        // 44px touch target for mobile embeds (WCAG 2.5.8 / platform guidance).
+        touch: 'h-11 px-4 text-sm',
       },
     },
     defaultVariants: { variant: 'primary', size: 'md' },
