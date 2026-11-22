@@ -1,4 +1,4 @@
-import { contract } from '@stellar/stellar-sdk';
+import type { contract } from '@stellar/stellar-sdk';
 import Freighter from '@stellar/freighter-api';
 import { api } from './api';
 import { config } from './config';
@@ -179,6 +179,10 @@ export async function callAsWallet(
     nativeArgs[field] = predictionScVal(nativeArgs[field] as string);
   }
   nativeArgs[AUTH_ADDRESS_PARAM[functionName]] = wallet.address;
+
+  // Loaded lazily so the Stellar SDK (XDR codegen, crypto) stays out of the
+  // first-load bundle for pages that never trade (e.g. `/welcome`, `/embed/*`).
+  const { contract } = await import('@stellar/stellar-sdk');
 
   const client = (await contract.Client.from({
     contractId,
