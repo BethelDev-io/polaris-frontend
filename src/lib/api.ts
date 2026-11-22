@@ -194,13 +194,6 @@ export const api = {
   getPrice: (id: string) =>
     request<{ yesBps: number; noBps: number; yesBpsChange: number | null }>(`/markets/${id}/price`),
   getFee: (id: string) => request<{ feeBps: number }>(`/markets/${id}/fee`),
-  getTickerPrice: (feedId: string) => request<unknown>(`/prices/${feedId}`),
-
-  faucet: (address: string) =>
-    request<{ funded: boolean; alreadyExists: boolean }>('/markets/faucet', {
-      method: 'POST',
-      body: JSON.stringify({ address }),
-    }),
 
   /** Spendable native-XLM collateral balance, in stroops — same shape for a Freighter or email-custodial wallet. */
   getBalance: (address: string) =>
