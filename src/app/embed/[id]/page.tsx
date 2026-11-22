@@ -182,7 +182,7 @@ export default function EmbedMarketPage({ params }: { params: Promise<{ id: stri
               <p className="text-xs text-[var(--muted)]">Trading closed.</p>
             )
           ) : showEmailFallback ? (
-            <AuthControls compact />
+            <AuthControls compact autoFocus={false} />
           ) : (
             <div className="space-y-2">
               <div className="grid grid-cols-2 gap-2">
@@ -206,54 +206,6 @@ export default function EmbedMarketPage({ params }: { params: Promise<{ id: stri
               />
               {payoutPreview && (
                 <p className="text-[10px] text-[var(--faint)]">
-                  You get <span className="font-semibold text-[var(--ink)]">{payoutPreview} XLM</span> if {side.toUpperCase()} wins
-                </p>
-              )}
-              <Button
-                size="sm"
-                className="w-full"
-                variant={side === 'Yes' ? 'yes' : 'no'}
-                onClick={handleTrade}
-                disabled={busy || connecting || !state || !fee || !payoutPreview}
-              >
-                {connecting
-                  ? 'Confirm in Freighter…'
-                  : busy
-                    ? wallet?.kind === 'email'
-                      ? 'Placing bet…'
-                      : 'Confirm in Freighter…'
-                    : `Buy ${side}`}
-              </Button>
-              {!wallet && !connecting && (
-                <p className="text-center text-[10px] text-[var(--faint)]">
-                  Connects Freighter &mdash; sign with your own wallet
-                </p>
-              )}
-            </div>
-          )}
+                  You get <span className="font-semibold text
 
-          {(txResult || txError || walletError) && (
-            <p
-              className={`text-[10px] ${txError || walletError ? 'text-[var(--no)] break-all' : 'text-[var(--yes)]'}`}
-            >
-              {txError ?? walletError ?? (
-                <>
-                  Confirmed <span className="text-[var(--faint)]">— ref {shortAddress(txResult!)}</span>
-                </>
-              )}
-            </p>
-          )}
-          {walletError && !wallet && !showEmailFallback && (
-            <button
-              type="button"
-              onClick={() => setPreferEmail(true)}
-              className="text-[10px] text-[var(--faint)] underline"
-            >
-              Try email instead
-            </button>
-          )}
-        </CardBody>
-      </Card>
-    </div>
-  );
-}
+/* … truncated 1733 chars — edit only what you need near the top … */
