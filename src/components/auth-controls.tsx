@@ -113,6 +113,8 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
               disabled={emailBusy}
               className={`${inputClass} w-24 disabled:opacity-60`}
               placeholder="6-digit code"
+              aria-label="6-digit verification code"
+              autoComplete="one-time-code"
               inputMode="numeric"
               maxLength={6}
               value={code}
@@ -151,6 +153,8 @@ export function AuthControls({ compact = false }: { compact?: boolean }) {
             disabled={emailBusy}
             className={`${inputClass} w-36 disabled:opacity-60`}
             placeholder="you@email.com"
+            aria-label="Email address"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
